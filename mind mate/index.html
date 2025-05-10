@@ -1,0 +1,45 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch('http://localhost:3000/api/quote')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("quote").innerText = data.quote;
+      })
+      .catch(err => {
+        document.getElementById("quote").innerText = "Could not load quote.";
+      });
+  });
+
+  function startBreathing() {
+    const messageArea = document.getElementById("messageArea");
+    messageArea.innerHTML = `
+      <strong>Breathing Exercise:</strong><br>
+      Breathe in... (4s) 🌬️<br>
+      Hold... (7s) ✋<br>
+      Exhale... (8s) 💨
+    `;
+  }
+
+  function showMoodMessage() {
+    const mood = document.getElementById("moodInput").value.trim();
+    const messageArea = document.getElementById("messageArea");
+
+    if (mood === "") {
+      messageArea.textContent = "Please enter how you're feeling today.";
+      return;
+    }
+
+    fetch('http://localhost:3000/api/mood', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mood })
+    })
+    .then(response => response.json())
+    .then(data => {
+      messageArea.textContent = data.message;
+    })
+    .catch(err => {
+      messageArea.textContent = "Could not process mood.";
+    });
+  }
+</script>

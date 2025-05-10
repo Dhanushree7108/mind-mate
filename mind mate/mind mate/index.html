@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Motivational Quotes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    #quote {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #444;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #66a6ff;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #66a6ff, #89f7fe);
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    #messageArea {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #555;
+      background: #f1faff;
+      padding: 15px;
+      border-radius: 10px;
+      min-height: 50px;
+      transition: all 0.3s ease;
+      white-space: pre-line; /* allows line breaks */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="quote">Loading motivational quote...</div>
+
+    <input type="text" id="moodInput" placeholder="How are you feeling today?">
+    <br>
+    <button class="btn" onclick="showMoodMessage()">Submit Mood</button>
+    <button class="btn" onclick="startBreathing()">Start Breathing Exercise</button>
+
+    <div id="messageArea"></div>
+  </div>
+
+  <script>
+    const quotes = [
+      "You are stronger than you think.",
+      "One day at a time.",
+      "It's okay to not be okay.",
+      "Progress, not perfection.",
+      "Take a deep breath. You got this!"
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("quote").innerText =
+        quotes[Math.floor(Math.random() * quotes.length)];
+    });
+
+    function startBreathing() {
+      const messageArea = document.getElementById("messageArea");
+      messageArea.innerHTML = `
+        <strong>Breathing Exercise:</strong><br>
+        Breathe in... (4s) 🌬️<br>
+        Hold... (7s) ✋<br>
+        Exhale... (8s) 💨
+      `;
+    }
+
+    function showMoodMessage() {
+      const mood = document.getElementById("moodInput").value.trim().toLowerCase();
+      const messageArea = document.getElementById("messageArea");
+
+      if (mood === "") {
+        messageArea.textContent = "Please enter how you're feeling today.";
+        return;
+      }
+
+      let message = "Thank you for sharing your feeling!";
+
+      if (mood.includes("happy")) {
+        message = "😊 Glad to hear you’re happy!\nRemember to spread that joy to others.\nKeep shining!";
+      } else if (mood.includes("sad")) {
+        message = "😢 It’s okay to feel sad. Take a deep breath.\nYou are not alone, and better days will come.\nBe gentle with yourself.";
+      } else if (mood.includes("anxious")) {
+        message = "😰 Feeling anxious? Try the breathing exercise below.\nYou are stronger than your worries.\nTake things one step at a time.";
+      } else if (mood.includes("tired")) {
+        message = "😴 Let’s take it easy today.\nRest is productive too!\nMake sure to recharge.";
+      } else if (mood.includes("stressed")) {
+        message = "😓 Take a deep breath, and know you’ll get through this.\nYou are capable and resilient.\nPause and prioritize self-care.";
+      } else if (mood.includes("grateful")) {
+        message = "🙏 Gratitude can be so powerful. Keep your head high!\nShare that gratitude with someone today.\nYour light inspires others.";
+      } else if (mood.includes("excited")) {
+        message = "🎉 Exciting times ahead! Stay positive!\nHarness that excitement and make today amazing.\nEnjoy the journey!";
+      } else if (mood.includes("confused")) {
+        message = "🤔 It’s okay to feel confused. Things will make sense soon.\nBe patient with yourself.\nClarity comes with time.";
+      } else {
+        message = `You're feeling "${mood}". Take a deep breath and be kind to yourself. 💛\nRemember, all feelings are valid.\nYou're doing your best.`;
+      }
+
+      messageArea.textContent = message;
+    }
+  </script>
+
+</body>
+</html>
